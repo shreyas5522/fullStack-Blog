@@ -1,20 +1,21 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
-
+import json
 app = Flask(__name__, static_url_path='/static')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://username:password@localhost/databasename'
+
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://phpmyadmin:admin%40123@localhost/flaskStatic'
 db = SQLAlchemy(app)
 
-
 class Contacts(db.Model):
+    __tablename__ = 'Contacts'
     sno = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=False, nullable=False)
     phone_num = db.Column(db.String(120), unique=False, nullable=False)
     msg = db.Column(db.String(120), unique=True, nullable=False)
     date = db.Column(db.String(120), unique=True, nullable=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-
 
 @app.route('/')
 @app.route('/index.html')
