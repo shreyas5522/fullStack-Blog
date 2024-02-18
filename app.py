@@ -1,11 +1,17 @@
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 import json
+
+local_server = True
+with open('config.json', 'r') as c:
+    params = json.load(c)["params"]
+
 app = Flask(__name__, static_url_path='/static')
+if(local_server):
+    app.config['SQLALCHEMY_DATABASE_URI'] = params['local_uri']
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = params['prod_uri']
 
-
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://phpmyadmin:admin%40123@localhost/flaskStatic'
 db = SQLAlchemy(app)
 
 class Contacts(db.Model):
