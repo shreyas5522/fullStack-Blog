@@ -1,12 +1,13 @@
-from flask import Flask, render_template, request
+from flask import Flask, Flask, render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
 import json
-
 local_server = True
 with open('config.json', 'r') as c:
     params = json.load(c)["params"]
 
 app = Flask(__name__, static_url_path='/static')
+app.secret_key = 'your_secret_key_here'
+
 if(local_server):
     app.config['SQLALCHEMY_DATABASE_URI'] = params['local_uri']
 else:
@@ -41,22 +42,28 @@ def about():
     return render_template('about.html')
 
 
+
 @app.route('/contact', methods=["GET", "POST"])
 @app.route('/contact.html')
 def contact():
-    if (request.method == "POST"):
-
-        '''Add entry to database'''
+    if request.method == "POST":
         name = request.form.get('name')
         email = request.form.get('email')
         phone = request.form.get('phone')
         message = request.form.get('message')
 
-        entry = Contacts(name=name, phone_num=phone, msg=message, email=email)
-        db.session.add(entry)
-        db.session.commit()
-    return render_template('contact.html')
+        # Check if email already exists in the database
+        existing_entry = Contacts.query.filter_by(email=email).first()
+        if existing_entry:
+            flash('Email already exists!', 'error')
+        else:
+            # Add entry to database
+            entry = Contacts(name=name, phone_num=phone, msg=message, email=email)
+            db.session.add(entry)
+            db.session.commit()
+            flash('Entry added successfully!', 'success')
 
+    return render_template('contact.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
