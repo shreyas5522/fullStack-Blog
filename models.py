@@ -18,3 +18,4 @@ class Posts(db.Model):
     slug  = db.Column(db.String(12), unique=False, nullable=False)
     content = db.Column(db.String(200), unique=False, nullable=False)
     date = db.Column(db.String(12), unique=True, nullable=True)
+    img_file = db.Column(db.String(12), nullable=True)

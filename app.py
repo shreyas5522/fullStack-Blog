@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
 import json
 from models import db, Contacts, Posts
+import builtins
 
 local_server = True
 with open('config.json', 'r') as c:
@@ -54,7 +55,7 @@ def contact():
             db.session.commit()
             flash('Entry added successfully!', 'success')
 
-    return render_template('contact.html')
+    return render_template('contact.html', builtins=builtins)
 
 if __name__ == '__main__':
     app.run(debug=True)
