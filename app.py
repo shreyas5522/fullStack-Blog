@@ -21,7 +21,8 @@ db.init_app(app)
 @app.route('/')
 @app.route('/index.html')
 def index():
-    return render_template('index.html')
+    posts = Posts.query.filter_by().all()
+    return render_template('index.html', params = params, posts=posts)
 
 @app.route('/post/<string:post_slug>',methods=['GET'])
 def post_route(post_slug):
