@@ -27,12 +27,12 @@
                         <div class="post-preview">
                             <a href="post.html"> 
                                 <!-- Displaying Content -->
-                                <p class="in-post-home">{{post.content[0:50]}}</p>
+                                <p class="in-post-home">{{post.content[0:150]}}...</p>
                                 <h5 class="post-subtitle">{{post.subtitle}}</h5>
                             </a>
-                            <p class="">
+                            <p class="post-meta">
                                 Posted by
-                                <a href="#!">Start Bootstrap</a>
+                                <strong>{{post.author}}</strong>
                                 on {{post.date}}
                             </p>
                         </div>
@@ -41,7 +41,6 @@
                         
 
                     <!-- Divider-->
-                    <hr class="my-4" />
                     <!-- Pager-->
                     <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
                 </div>

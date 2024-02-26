@@ -21,7 +21,7 @@ db.init_app(app)
 @app.route('/')
 @app.route('/index.html')
 def index():
-    posts = Posts.query.filter_by().all()
+    posts = Posts.query.filter_by().all()[0:params['no_of_posts']]
     return render_template('index.html', params = params, posts=posts)
 
 @app.route('/post/<string:post_slug>',methods=['GET'])
@@ -31,7 +31,7 @@ def post_route(post_slug):
 
 @app.route('/post.html')
 def post():
-    return render_template('post.html')
+    return render_template('post.html', post = post)
 
 @app.route('/about')
 @app.route('/about.html')
