@@ -33,6 +33,11 @@ def post_route(post_slug):
 def post():
     return render_template('post.html', post = post)
 
+@app.route('/dashboard')
+def dashboard():
+    return render_template('login.html', post = post)
+
+
 @app.route('/about')
 @app.route('/about.html')
 def about():
