@@ -16,10 +16,12 @@ CREATE TABLE Contacts (
 
 ```
 CREATE TABLE posts (
-    sno INT NOT NULL PRIMARY KEY,
+    sno INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(80) NOT NULL,
     slug VARCHAR(25) NOT NULL,
     content VARCHAR(2500) NOT NULL,
+    subtitle VARCHAR(50),
+    author VARCHAR(12) NOT NULL DEFAULT 'Shreyas',
     img_file VARCHAR(12),
     date VARCHAR(120)
 );
