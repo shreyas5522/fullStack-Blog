@@ -33,9 +33,12 @@ def post_route(post_slug):
 def post():
     return render_template('post.html', post = post)
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET','POST'])
 def dashboard():
-    return render_template('login.html', post = post)
+    if request.method =='POST':
+        pass
+    else:
+        return render_template('login.html',  params=params, post=post)
 
 
 @app.route('/about')
