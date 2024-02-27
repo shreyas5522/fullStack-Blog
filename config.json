@@ -3,7 +3,8 @@
         "local_server": "True",
         "local_uri": "mysql://root:%rxUXm*4H3p~80z@localhost/flaskStatic",
         "prod_uri": "mysql://root:%rxUXm*4H3p~80z@localhost/flaskStatic",
-        "no_of_posts": 5
+        "no_of_posts": 5,
+        "tag_line": "It should be the TagLine"
 
     }
 }
