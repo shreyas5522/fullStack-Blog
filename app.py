@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, session
 from flask_sqlalchemy import SQLAlchemy
 import json
 from models import db, Contacts, Posts
@@ -33,12 +33,24 @@ def post_route(post_slug):
 def post():
     return render_template('post.html', post = post)
 
-@app.route('/dashboard', methods=['GET','POST'])
+@app.route('/dashboard', methods=['GET', 'POST'])
+@app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    if request.method =='POST':
-        pass
-    else:
-        return render_template('login.html',  params=params, post=post)
+    if 'user' in session and session['user'] == params['username']:
+        return render_template('dashboard.html')
+
+    if request.method == 'POST':
+        username = request.form.get('username')
+        userpass = request.form.get('password')
+        if username == params['username'] and userpass == params['password']:
+            session['user'] = username
+            return render_template('dashboard.html', params=params)
+        else:
+            # If username or password is incorrect, render login template
+            return render_template('login.html', params=params)
+    
+    # If request method is GET and user is not logged in, redirect to login
+    return redirect(url_for('login'))
 
 
 @app.route('/about')
