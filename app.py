@@ -36,12 +36,13 @@ def post():
 @app.route('/dashboard', methods=['GET', 'POST'])
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
+    
     if 'user' in session and session['user'] == params['username']:
-        return render_template('dashboard.html')
+        return render_template('dashboard.html', params= params)
 
     if request.method == 'POST':
         username = request.form.get('username')
-        userpass = request.form.get('password')
+        userpass = request.form.get('userpass')
         if username == params['username'] and userpass == params['password']:
             session['user'] = username
             return render_template('dashboard.html', params=params)
