@@ -32,44 +32,39 @@ def post_route(post_slug):
 @app.route('/post.html')
 def post():
     return render_template('post.html', post = post)
-
 from flask import session, redirect, url_for, request, render_template
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    if 'user' in session and session['user'] == session.get('username'):
-        return render_template('dashboard.html', params=session.get('username'))
+    if ('user' in session and session['user'] == params['username']):
+        return render_template('dashboard.html')
 
     if request.method == 'POST':
-        username = request.form.get('username')
-        userpass = request.form.get('userpass')
-        if username == params['username'] and userpass == params['password']:
-            session['user'] = username
-            session['username'] = username
+        app_username = request.form.get('usern')
+        app_userpass = request.form.get('userpass')
+        if (app_username == params['username'] and app_userpass == params['password']):
+            session['user'] = app_username
             return render_template('dashboard.html', params=params)
-        else:
-            # If username or password is incorrect, render login template
-            return render_template('login.html', params=params)
-
-    # If request method is GET and user is not logged in, redirect to login
-    return redirect(url_for('login'))
-
-@app.route('/login', methods=['GET', 'POST'])
-@app.route('/login.html', methods=['GET', 'POST'])
-def login():
-    if request.method == 'GET':
+    else:
+    # If request method is GET and user is not logged in, render login template
         return render_template('login.html', params=params)
-    elif request.method == 'POST':
-        # Handle login form submission
-        username = request.form.get('username')
-        userpass = request.form.get('userpass')
-        if username == params['username'] and userpass == params['password']:
-            session['user'] = username
-            session['username'] = username
-            return redirect(url_for('dashboard', params=params))
-        else:
-            # If username or password is incorrect, render login template with error message
-            return render_template('login.html', error="Invalid username or password.", params=params)
+
+
+#If want to create login for loginPage and dashboard for dashboard page
+# @app.route('/dashboard', methods=['GET', 'POST'])
+# def dashboard():
+#     if 'user' in session and session['user'] == params['username']:
+#         return render_template('dashboard.html', username=session.get('username'))
+#     else:
+#         # If user is not logged in, redirect to login
+#         return redirect(url_for('login'))
+
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    session.pop('username', None)
+    return redirect(url_for('dashboard'))
 
     
 @app.route('/about')
