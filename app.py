@@ -37,7 +37,7 @@ from flask import session, redirect, url_for, request, render_template
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if ('user' in session and session['user'] == params['username']):
-        return render_template('dashboard.html')
+        return render_template('dashboard.html',username = params['username'])
 
     if request.method == 'POST':
         app_username = request.form.get('usern')
