@@ -37,7 +37,8 @@ from flask import session, redirect, url_for, request, render_template
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     if ('user' in session and session['user'] == params['username']):
-        return render_template('dashboard.html',username = params['username'])
+        posts = Posts.query.all()
+        return render_template('dashboard.html',username = params['username'],posts = posts)
 
     if request.method == 'POST':
         app_username = request.form.get('usern')
@@ -45,7 +46,6 @@ def dashboard():
         if (app_username == params['username'] and app_userpass == params['password']):
             session['user'] = app_username
             posts = Posts.query.all()
-
             return render_template('dashboard.html', params=params, posts = posts)
     else:
     # If request method is GET and user is not logged in, render login template
