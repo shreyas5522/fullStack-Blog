@@ -24,3 +24,16 @@ body {
     border-color: #000000;
     color: black; /* Changing text color to black */
 }
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #007bff;
+    text-align: center;
+    line-height: 50px; /* Height of the footer */
+    color: white;
+}
+footer span {
+    background-color: #007bff;
+    padding: 5px;
+}
