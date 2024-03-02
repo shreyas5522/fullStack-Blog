@@ -44,7 +44,9 @@ def dashboard():
         app_userpass = request.form.get('userpass')
         if (app_username == params['username'] and app_userpass == params['password']):
             session['user'] = app_username
-            return render_template('dashboard.html', params=params)
+            posts = Posts.query.all()
+
+            return render_template('dashboard.html', params=params, posts = posts)
     else:
     # If request method is GET and user is not logged in, render login template
         return render_template('login.html', params=params)
