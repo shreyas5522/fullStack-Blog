@@ -28,40 +28,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link logout-btn" href="logout">Logout</a>
-                </li>
-                <h1>Edit Posts</h1>
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Sno</th>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                
-                
-                      {% for post in posts %}
-                      <tr>
-                        <td>{{post.sno}}</td>
-                        <td>{{post.title}}</td>
-                        <td>{{post.date}}</td>
-                        <td><a href="/edit/{{post.sno}}"><button class="btn btn-primary" >Edit</button></a></td>
-                        <td><a href="/delete/{{post.sno}}"><button class="btn btn-primary">Delete</button></a></td>
-                      </tr>
-                      
-                
-                      {% endfor %}
-                
-                
-                
-                
-                
-                    </tbody>
-                  </table>
-                
+                </li
                 
                 
             </ul>
@@ -74,6 +41,34 @@
     <h1>Welcome to your Post Management Dashboard</h1>
     <p>You can manage your posts here.</p>
 </div>
+<h1>Edit Posts</h1>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Sno</th>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+
+
+      {% for post in posts %}
+      <tr>
+        <td>{{post.sno}}</td>
+        <td>{{post.title}}</td>
+        <td>{{post.date}}</td>
+        <td><a href="/edit/{{post.sno}}"><button class="btn btn-primary" >Edit</button></a></td>
+        <td><a href="/delete/{{post.sno}}"><button class="btn btn-primary">Delete</button></a></td>
+      </tr>
+      
+
+      {% endfor %}
+
+    </tbody>
+  </table>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
