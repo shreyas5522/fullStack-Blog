@@ -1,4 +1,9 @@
     /* Form container */
+    label {
+        font-size: 1.1rem; /* Adjust the font size as needed */
+        font-weight: bold; /* Make the label text bold */
+    }
+
     .form-container {
         max-width: 1000px;
         margin: auto;
@@ -56,4 +61,8 @@
     /* Submit button hover */
     .btn-submit:hover {
         background-color: #0056b3;
+    }
+
+    .my-5 {
+        margin-top: 10px;
     }
