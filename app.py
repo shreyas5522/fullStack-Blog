@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import json
+from flask_login import LoginManager, login_user, logout_user, current_user, UserMixin
+from werkzeug.security import check_password_hash
+
 from models import db, Contacts, Posts, User
 import builtins
 
@@ -16,52 +19,60 @@ if local_server:
 else:
     app.config['SQLALCHEMY_DATABASE_URI'] = params['prod_uri']
 
+
 db.init_app(app)
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 @app.route('/')
 @app.route('/index.html')
 def index():
     posts = Posts.query.filter_by().all()[0:params['no_of_posts']]
-    return render_template('index.html', params = params, posts=posts)
+    return render_template('index.html', params=params, posts=posts)
 
-@app.route('/post/<string:post_slug>',methods=['GET'])
+@app.route('/post/<string:post_slug>', methods=['GET'])
 def post_route(post_slug):
     post = Posts.query.filter_by(slug=post_slug).first()
     return render_template('post.html', params=params, post=post)
 
 @app.route('/post.html')
 def post():
-    return render_template('post.html', post = post)
-from flask import session, redirect, url_for, request, render_template
+    return render_template('post.html', post=post)
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    if 'user' in session:
-        username = session['user']
+    if current_user.is_authenticated:
         posts = Posts.query.all()
-        return render_template('dashboard.html', username=username, posts=posts)
+        return render_template('dashboard.html', username=current_user.username, posts=posts)
+    else:
+        if request.method == 'POST':
+            app_username = request.form.get('usern')
+            app_userpass = request.form.get('userpass')
 
-    if request.method == 'POST':
-        app_username = request.form.get('usern')
-        app_userpass = request.form.get('userpass')
-        if (app_username == params['username'] and app_userpass == params['password']):
-            session['user'] = app_username
-            posts = Posts.query.all()
-            return render_template('dashboard.html', username=app_username, posts=posts)
-        else:
-            # Invalid credentials, you might want to handle this case
-            return render_template('login.html', params=params)
-    
-    # Render login.html if GET and user is not logged in.
-    return render_template('login.html', params=params)
+            # Query the user from the database
+            user = User.query.filter_by(username=app_username, password=app_userpass).first()
+            if user:
+                # Log the user in using Flask-Login's login_user function
+                login_user(user)
+                posts = Posts.query.all()
+                return render_template('dashboard.html', username=app_username, posts=posts)
+            else:
+                # Invalid credentials, you might want to handle this case
+                flash('Invalid username or password.', 'error')
+        return render_template('login.html', params=params)
 
 @app.route('/logout')
 def logout():
+    logout_user()
+
     session.pop('user', None)
     session.pop('username', None)
     return redirect(url_for('dashboard'))
 
-    
 @app.route('/about')
 @app.route('/about.html')
 def about():
