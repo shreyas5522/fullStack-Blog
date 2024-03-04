@@ -5,8 +5,6 @@
         "prod_uri": "mysql://root:%rxUXm*4H3p~80z@localhost/flaskStatic",
         "no_of_posts": 5,
         "blog_name": "fullStack-Blog",
-        "tag_line": "It should be the TagLine",
-        "username": "shreyas",
-        "password": "shreyas"
+        "tag_line": "It should be the TagLine"
     }
 }

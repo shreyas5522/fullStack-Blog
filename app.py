@@ -39,6 +39,7 @@ def post_route(post_slug):
     post = Posts.query.filter_by(slug=post_slug).first()
     return render_template('post.html', params=params, post=post)
 
+
 @app.route('/post.html')
 def post():
     return render_template('post.html', post=post)
@@ -63,6 +64,17 @@ def dashboard():
             else:
                 # Invalid credentials, you might want to handle this case
                 flash('Invalid username or password.', 'error')
+        return render_template('login.html', params=params)
+    
+@app.route("/edit/<string:sno>", methods = ['GET', 'POST'])
+def edit(sno):
+    if current_user.is_authenticated:
+        posts = Posts.query.all()
+        if request.method == 'POST':
+            box_title == request.form.get('title')
+        return render_template('edit.html', username=current_user.username, posts=posts)
+    else: 
+        flash('Please Login First.', 'error')
         return render_template('login.html', params=params)
 
 @app.route('/logout')
