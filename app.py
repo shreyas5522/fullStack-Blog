@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-import json
 from flask_login import LoginManager, login_user, logout_user, current_user, UserMixin
 from werkzeug.security import check_password_hash
+from datetime import datetime
 
 from models import db, Contacts, Posts, User
-import builtins
+import json
 
 local_server = True
 with open('config.json', 'r') as c:
@@ -76,7 +76,7 @@ def edit(sno):
             slug = request.form.get('slug')
             content = request.form.get('content')
             img_file = request.form.get('img_file')
-        
+            date = datetime.now()
         if sno == '0':
             post = Posts(title = box_title, slug=slug, content = content, tagline = tline, img_file = img_file)
             db.session.add(post)
