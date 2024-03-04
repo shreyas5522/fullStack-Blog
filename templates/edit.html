@@ -17,7 +17,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">Dashboard</a>
+            <a class="navbar-brand" href="{{ url_for('dashboard') }}">Dashboard</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -59,8 +59,8 @@
                 <div class="form-floating mb-3">
                     <label for="tline">Tagline</label>
 
-                    <input class="form-control" id="tline" name="tline" type="text" placeholder="Enter your email..."
-                        data-sb-validations="required,email" />
+                    <input class="form-control" id="subtitle" name="subtitle" type="text" placeholder="Enter your email..."
+                        data-sb-validations="required" />
                     <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
                     <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
                 </div>
@@ -78,7 +78,7 @@
                 <div class="form-floating mb-3">
                     <label for="message">Content</label>
 
-                    <textarea class="form-control" id="message" name="message" placeholder="Enter your message here..."
+                    <textarea class="form-control" id="content" name="content" placeholder="Enter your message here..."
                         style="height: 12rem" data-sb-validations="required"></textarea>
                     <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
                 </div>

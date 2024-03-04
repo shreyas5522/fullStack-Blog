@@ -66,25 +66,56 @@ def dashboard():
                 flash('Invalid username or password.', 'error')
         return render_template('login.html', params=params)
     
-@app.route("/edit/<string:sno>", methods = ['GET', 'POST'])
+@app.route("/edit/<string:sno>", methods=['GET', 'POST'])
 def edit(sno):
     if current_user.is_authenticated:
         posts = Posts.query.all()
         if request.method == 'POST':
             box_title = request.form.get('title')
-            tline = request.form.get('tline')
+            subtitle = request.form.get('subtitle')
             slug = request.form.get('slug')
             content = request.form.get('content')
             img_file = request.form.get('img_file')
             date = datetime.now()
-        if sno == '0':
-            post = Posts(title = box_title, slug=slug, content = content, tagline = tline, img_file = img_file)
-            db.session.add(post)
-            db.session.commit()
+            author = current_user.username
+
             
-        return render_template('edit.html',params = params)
-    else: 
-        flash('Please Login First.', 'error')
+            if sno == 'add':
+                post = Posts(title=box_title, slug=slug, content=content, subtitle=subtitle, img_file=img_file, date=date, author=author)
+                db.session.add(post)
+                db.session.commit()
+            else:
+                post = Posts.query.filter_by(sno=sno).first()
+                post.title = box_title
+                post.slug = slug
+                post.content = content
+                post.subtitle = subtitle
+                post.author = author
+                post.img_file = img_file
+                post.date = date
+                
+                db.session.commit()
+                
+            return redirect(url_for('index'))
+        
+        if sno == 'add':
+            box_title = ''
+            tline = ''
+            slug = ''
+            content = ''
+            img_file = ''
+        else:
+            post = Posts.query.filter_by(sno=sno).first()
+            box_title = post.title
+            tline = post.tagline
+            slug = post.slug
+            content = post.content
+            img_file = post.img_file
+        
+        return render_template('edit.html', params=params, posts=posts, sno=sno, box_title=box_title, tline=tline, slug=slug, content=content, img_file=img_file)
+    
+    else:
+        flash('Please login first.', 'error')
         return render_template('login.html', params=params)
 
 @app.route('/logout')
