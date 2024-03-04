@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,73 +8,75 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href=" {{ url_for('static', filename='css/dashboard.css')}}" rel="stylesheet">
 </head>
+
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand" href="#">Dashboard</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto" >
-                <li class="nav-item" style="color: white;">
-                    <a class="nav-link" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Posts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Settings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link logout-btn" href="logout">Logout</a>
-                </li
-            </ul>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Dashboard</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" style="color: white;">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Posts</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link logout-btn" href="{{ url_for('logout') }}">Logout</a>
+                    </li </ul>
+            </div>
         </div>
+    </nav>
+
+    <div class="container mt-5">
+        <!-- Your dashboard content goes here -->
+        <h1>Welcome to your Post Management Dashboard, {{username}} </h1>
+        <p>You can manage your posts here.</p>
+        <h3>Upload a File</h3>
+
+        <h3>Edit Posts</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sno</th>
+                    <th>Title</th>
+                    <th>Date</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                {% for post in posts %}
+                <tr>
+                    <td>{{post.sno}}</td>
+                    <td>{{post.title}}</td>
+                    <td>{{post.date}}</td>
+                    <td><a href="/edit/{{post.sno}}"><button class="btn btn-primary">Edit</button></a></td>
+                    <td><a href="/delete/{{post.sno}}"><button class="btn btn-primary">Delete</button></a></td>
+                </tr>
+
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+
     </div>
-</nav>
 
-<div class="container mt-5">
-    <!-- Your dashboard content goes here -->
-    <h1>Welcome to your Post Management Dashboard, {{username}} </h1>
-    <p>You can manage your posts here.</p>
-    <h3>Upload a File</h3>
-
-    <h3>Edit Posts</h3>
-<table class="table">
-    <thead>
-      <tr>
-        <th>Sno</th>
-        <th>Title</th>
-        <th>Date</th>
-        <th>Edit</th>
-        <th>Delete</th>
-      </tr>
-    </thead>
-    <tbody>
-
-
-      {% for post in posts %}
-      <tr>
-        <td>{{post.sno}}</td>
-        <td>{{post.title}}</td>
-        <td>{{post.date}}</td>
-        <td><a href="/edit/{{post.sno}}"><button class="btn btn-primary" >Edit</button></a></td>
-        <td><a href="/delete/{{post.sno}}"><button class="btn btn-primary">Delete</button></a></td>
-      </tr>
-      
-
-      {% endfor %}
-
-    </tbody>
-  </table>
-
-</div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<footer><span>&copy; 2024</span></footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <footer><span>&copy; 2024</span></footer>
 </body>
+
 </html>

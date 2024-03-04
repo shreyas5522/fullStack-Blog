@@ -71,8 +71,18 @@ def edit(sno):
     if current_user.is_authenticated:
         posts = Posts.query.all()
         if request.method == 'POST':
-            box_title == request.form.get('title')
-        return render_template('edit.html', username=current_user.username, posts=posts)
+            box_title = request.form.get('title')
+            tline = request.form.get('tline')
+            slug = request.form.get('slug')
+            content = request.form.get('content')
+            img_file = request.form.get('img_file')
+        
+        if sno == '0':
+            post = Posts(title = box_title, slug=slug, content = content, tagline = tline, img_file = img_file)
+            db.session.add(post)
+            db.session.commit()
+            
+        return render_template('edit.html',params = params)
     else: 
         flash('Please Login First.', 'error')
         return render_template('login.html', params=params)
