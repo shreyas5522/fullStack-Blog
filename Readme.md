@@ -27,6 +27,15 @@ CREATE TABLE posts (
 );
 ```
 
+```
+CREATE TABLE user (
+    id INTEGER NOT NULL AUTO_INCREMENT,
+    username VARCHAR(80) NOT NULL UNIQUE,
+    password VARCHAR(80) NOT NULL,
+    PRIMARY KEY (id)
+);
+```
+
 ## How to Run
 
 To run this Contacts Management System:

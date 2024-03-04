@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import json
-from models import db, Contacts, Posts
+from models import db, Contacts, Posts, User
 import builtins
 
 local_server = True
@@ -36,9 +36,10 @@ from flask import session, redirect, url_for, request, render_template
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    if ('user' in session and session['user'] == params['username']):
+    if 'user' in session:
+        username = session['user']
         posts = Posts.query.all()
-        return render_template('dashboard.html',username = params['username'],posts = posts)
+        return render_template('dashboard.html', username=username, posts=posts)
 
     if request.method == 'POST':
         app_username = request.form.get('usern')
@@ -46,10 +47,14 @@ def dashboard():
         if (app_username == params['username'] and app_userpass == params['password']):
             session['user'] = app_username
             posts = Posts.query.all()
-            return render_template('dashboard.html', params=params, posts = posts)
-    else:
-    # If request method is GET and user is not logged in, render login template
-        return render_template('login.html', params=params)
+            return render_template('dashboard.html', username=app_username, posts=posts)
+        else:
+            # Invalid credentials, you might want to handle this case
+            return render_template('login.html', params=params)
+    
+    # Render login.html if GET and user is not logged in.
+    return render_template('login.html', params=params)
+
 
 
 #If want to create login for loginPage and dashboard for dashboard page
@@ -93,6 +98,10 @@ def contact():
             flash('Entry added successfully!', 'success')
 
     return render_template('contact.html', builtins=builtins)
+
+# @app.route('/edit/<string:no>', methods=["GET", "POST"])
+# def edit(sno):
+#     if ('user' in session and session['user'] == params['admin_user']):
 
 if __name__ == '__main__':
     app.run(debug=True)
