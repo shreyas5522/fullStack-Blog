@@ -55,18 +55,6 @@ def dashboard():
     # Render login.html if GET and user is not logged in.
     return render_template('login.html', params=params)
 
-
-
-#If want to create login for loginPage and dashboard for dashboard page
-# @app.route('/dashboard', methods=['GET', 'POST'])
-# def dashboard():
-#     if 'user' in session and session['user'] == params['username']:
-#         return render_template('dashboard.html', username=session.get('username'))
-#     else:
-#         # If user is not logged in, redirect to login
-#         return redirect(url_for('login'))
-
-
 @app.route('/logout')
 def logout():
     session.pop('user', None)
@@ -98,10 +86,6 @@ def contact():
             flash('Entry added successfully!', 'success')
 
     return render_template('contact.html', builtins=builtins)
-
-# @app.route('/edit/<string:no>', methods=["GET", "POST"])
-# def edit(sno):
-#     if ('user' in session and session['user'] == params['admin_user']):
 
 if __name__ == '__main__':
     app.run(debug=True)
