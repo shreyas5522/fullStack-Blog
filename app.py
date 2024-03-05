@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, login_user, logout_user, current_user, UserMixin
+from flask_login import LoginManager, login_user, logout_user, current_user, UserMixin, login_required
 from werkzeug.security import check_password_hash
 from datetime import datetime
 
@@ -67,56 +67,49 @@ def dashboard():
         return render_template('login.html', params=params)
     
 @app.route("/edit/<string:sno>", methods=['GET', 'POST'])
+@login_required  # Assuming you have a login_required decorator
 def edit(sno):
-    if current_user.is_authenticated:
-        posts = Posts.query.all()
-        if request.method == 'POST':
-            box_title = request.form.get('title')
-            subtitle = request.form.get('subtitle')
-            slug = request.form.get('slug')
-            content = request.form.get('content')
-            img_file = request.form.get('img_file')
-            date = datetime.now()
-            author = current_user.username
+    if request.method == 'POST':
+        box_title = request.form.get('title')
+        subtitle = request.form.get('subtitle')
+        slug = request.form.get('slug')
+        content = request.form.get('content')
+        img_file = request.form.get('img_file')
+        date = datetime.now()
+        author = current_user.username
 
-            
-            if sno == 'add':
-                post = Posts(title=box_title, slug=slug, content=content, subtitle=subtitle, img_file=img_file, date=date, author=author)
-                db.session.add(post)
-                db.session.commit()
-            else:
-                post = Posts.query.filter_by(sno=sno).first()
-                post.title = box_title
-                post.slug = slug
-                post.content = content
-                post.subtitle = subtitle
-                post.author = author
-                post.img_file = img_file
-                post.date = date
-                
-                db.session.commit()
-                
-            return redirect(url_for('index'))
-        
         if sno == 'add':
-            box_title = ''
-            subtitle = ''
-            slug = ''
-            content = ''
-            img_file = ''
+            post = Posts(title=box_title, slug=slug, content=content, subtitle=subtitle, img_file=img_file, date=date, author=author)
+            db.session.add(post)
         else:
             post = Posts.query.filter_by(sno=sno).first()
-            box_title = post.title
-            subtitle = post.subtitle
-            slug = post.slug
-            content = post.content
-            img_file = post.img_file
-        
-        return render_template('edit.html', params=params, posts=posts, sno=sno, box_title=box_title, subtitle=subtitle, slug=slug, content=content, img_file=img_file)
-    
+            post.title = box_title
+            post.slug = slug
+            post.content = content
+            post.subtitle = subtitle
+            post.author = author
+            post.img_file = img_file
+            post.date = date
+        db.session.commit()
+        return redirect(url_for('edit', sno=post.sno,post = post))  # Redirect to the edited post
+
+    if sno == 'add':
+        box_title = ''
+        subtitle = ''
+        slug = ''
+        content = ''
+        img_file = ''
     else:
-        flash('Please login first.', 'error')
-        return render_template('login.html', params=params)
+        post = Posts.query.filter_by(sno=sno).first_or_404()  # Returns 404 if sno doesn't exist
+        box_title = post.title
+        subtitle = post.subtitle
+        slug = post.slug
+        content = post.content
+        img_file = post.img_file
+    
+    post = Posts.query.filter_by(sno=sno).first()
+    return render_template('edit.html',post=post, params=params, sno=sno, box_title=box_title, subtitle=subtitle, slug=slug, content=content, img_file=img_file)
+
 
 @app.route('/logout')
 def logout():
