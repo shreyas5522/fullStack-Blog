@@ -100,7 +100,7 @@ def edit(sno):
         
         if sno == 'add':
             box_title = ''
-            tline = ''
+            subtitle = ''
             slug = ''
             content = ''
             img_file = ''
