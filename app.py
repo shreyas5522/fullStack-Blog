@@ -5,7 +5,7 @@ from werkzeug.security import check_password_hash
 from datetime import datetime
 
 from models import db, Contacts, Posts, User
-import json
+import json, builtins
 
 local_server = True
 with open('config.json', 'r') as c:
@@ -38,7 +38,6 @@ def index():
 def post_route(post_slug):
     post = Posts.query.filter_by(slug=post_slug).first()
     return render_template('post.html', params=params, post=post)
-
 
 @app.route('/post.html')
 def post():
@@ -106,7 +105,7 @@ def edit(sno):
         slug = post.slug
         content = post.content
         img_file = post.img_file
-    
+        
     post = Posts.query.filter_by(sno=sno).first()
     return render_template('edit.html',post=post, params=params, sno=sno, box_title=box_title, subtitle=subtitle, slug=slug, content=content, img_file=img_file)
 
