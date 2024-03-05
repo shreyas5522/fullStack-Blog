@@ -107,12 +107,12 @@ def edit(sno):
         else:
             post = Posts.query.filter_by(sno=sno).first()
             box_title = post.title
-            tline = post.tagline
+            subtitle = post.subtitle
             slug = post.slug
             content = post.content
             img_file = post.img_file
         
-        return render_template('edit.html', params=params, posts=posts, sno=sno, box_title=box_title, tline=tline, slug=slug, content=content, img_file=img_file)
+        return render_template('edit.html', params=params, posts=posts, sno=sno, box_title=box_title, subtitle=subtitle, slug=slug, content=content, img_file=img_file)
     
     else:
         flash('Please login first.', 'error')
