@@ -64,6 +64,16 @@ def dashboard():
                 # Invalid credentials, you might want to handle this case
                 flash('Invalid username or password.', 'error')
         return render_template('login.html', params=params)
+@app.route('/dashboard/settings', methods=['GET', 'POST'])
+def settings():
+    if request.method == 'POST':
+        # Handle file upload here
+        file = request.files['file']
+        # Save the file or do any processing
+        
+        return 'File uploaded successfully!'
+    else:
+        return render_template('upload_form.html')
     
 @app.route("/edit/<string:sno>", methods=['GET', 'POST'])
 @login_required  # Assuming you have a login_required decorator
