@@ -29,7 +29,7 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 @app.route('/')
-@app.route('/index.html')
+@app.route('/index')
 def index():
     posts = Posts.query.filter_by().all()[0:params['no_of_posts']]
     return render_template('index.html', params=params, posts=posts)
@@ -109,6 +109,16 @@ def edit(sno):
     post = Posts.query.filter_by(sno=sno).first()
     return render_template('edit.html',post=post, params=params, sno=sno, box_title=box_title, subtitle=subtitle, slug=slug, content=content, img_file=img_file)
 
+@app.route('/edit/upload', methods=['GET', 'POST'])
+def upload():
+    if request.method == 'POST':
+        # Handle file upload here
+        file = request.files['file']
+        # Save the file or do any processing
+        
+        return 'File uploaded successfully!'
+    else:
+        return render_template('upload_form.html')
 
 @app.route('/logout')
 def logout():
