@@ -65,7 +65,9 @@ def dashboard():
                 flash('Invalid username or password.', 'error')
         return render_template('login.html', params=params)
 @app.route('/dashboard/settings', methods=['GET', 'POST'])
+@login_required 
 def settings():
+
     if request.method == 'POST':
         # Handle file upload here
         file = request.files['file']
@@ -73,7 +75,7 @@ def settings():
         
         return 'File uploaded successfully!'
     else:
-        return render_template('upload_form.html')
+        return render_template('dashboard_settings.html')
     
 @app.route("/edit/<string:sno>", methods=['GET', 'POST'])
 @login_required  # Assuming you have a login_required decorator

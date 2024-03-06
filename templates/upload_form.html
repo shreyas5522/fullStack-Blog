@@ -1,5 +1,14 @@
 {% extends "dashboard_layout.html" %}
-{% block body %}
-    <h3>Here will be Upload</h3>
 
+{% block body %}
+<link href=" {{ url_for('static', filename='css/upload.css')}}" rel="stylesheet">
+
+    <form method="post" enctype="multipart/form-data">
+        <h3>Upload File</h3>
+
+        <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png, .gif" required>
+        <br>
+        
+        <button type="submit">Upload</button>
+    </form>
 {% endblock %}
