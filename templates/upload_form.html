@@ -3,7 +3,7 @@
 {% block body %}
 <link href=" {{ url_for('static', filename='css/upload.css')}}" rel="stylesheet">
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" style="margin-top: 70px;">
         <h3>Upload File</h3>
 
         <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png, .gif" required>
