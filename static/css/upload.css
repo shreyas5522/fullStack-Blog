@@ -47,3 +47,8 @@
         #dbutton:hover {
             background-color: #a31f1f;
         }
+        #confirmationMessage {
+            display: none;
+            margin-top: 20px;
+        }
+        
