@@ -139,6 +139,23 @@ def upload():
         return redirect(url_for('upload'))
     else:
         return render_template('upload_form.html')
+    
+@app.route("/delete/<int:sno>", methods=['GET', 'POST'])
+@login_required
+def delete(sno):
+    post = Posts.query.filter_by(sno=sno).first()  # Fetch the post with the given sno
+    if not post:
+        flash('Post not found!', 'error')
+        return redirect(url_for('dashboard'))
+
+    if request.method == 'POST':
+        db.session.delete(post)
+        db.session.commit()
+        flash('Post deleted successfully!', 'success')
+        return redirect(url_for('dashboard'))
+
+    return render_template('delete.html', post=post)
+
 
 @app.route('/logout')
 def logout():

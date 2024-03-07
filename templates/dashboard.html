@@ -1,12 +1,13 @@
 {% extends "dashboard_layout.html" %}
 {% block body %}
-    <div class="container mt-5" style="padding-top: 15px;">
-        <!-- Your dashboard content goes here -->
-        <h3> Hello, {{username}} </h3>
-        <h3>Welcome to your Post Management Dashboard</h3>
-        <p>You can manage your posts here.</p>
+<div class="container mt-5" style="padding-top: 15px;">
+    <!-- Your dashboard content goes here -->
+    <div
+        style="max-width: 800px; margin: 20px auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+        <h3 style="font-size: 24px; margin-top: 0;">Hello, {{username}}</h3>
+        <h3 style="font-size: 24px;">Welcome to your Post Management Dashboard</h3>
+        <p style="font-size: 16px; line-height: 1.6;">You can manage your posts here.</p>
 
-        <h3>Edit Posts</h3>
         <table class="table">
             <thead>
                 <tr>
@@ -36,5 +37,6 @@
         </table>
 
     </div>
+</div>
 
-    {% endblock %}
+{% endblock %}

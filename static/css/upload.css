@@ -3,7 +3,7 @@
             background-color: #f0f0f0;
         }
 
-        form {
+        form, .importFormStyle {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
@@ -33,4 +33,17 @@
 
         #ubutton:hover {
             background-color: #45a049;
+        }
+        #dbutton {
+            background-color: #ff0000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        #dbutton:hover {
+            background-color: #a31f1f;
         }
