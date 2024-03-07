@@ -3,13 +3,23 @@
 {% block body %}
 <link href=" {{ url_for('static', filename='css/upload.css')}}" rel="stylesheet">
 
-    <form method="post" enctype="multipart/form-data" style="margin-top: 70px;">
-        <h3>Upload File</h3>
+<form method="post" enctype="multipart/form-data" style="margin-top: 70px;">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="flashes">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
 
-        <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png, .gif" required>
-        <br>
-        
-        <button id="ubutton" type="submit">Upload</button>
-    </form>
+    <h3>Upload File</h3>
+
+    <input type="file" id="file" name="file" accept=".jpg, .jpeg, .png, .gif" required>
+    <br>
+
+    <button id="ubutton" type="submit">Upload</button>
+</form>
 
 {% endblock %}

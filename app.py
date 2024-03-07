@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, flash, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, logout_user, current_user, UserMixin, login_required
+from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
 from datetime import datetime
 
 from models import db, Contacts, Posts, User
-import json, builtins
+import json, builtins, os
 
 local_server = True
 with open('config.json', 'r') as c:
@@ -13,6 +14,9 @@ with open('config.json', 'r') as c:
 
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = 'your_secret_key_here'
+
+UPLOAD_FOLDER = os.path.join('static', 'assets', 'img')
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 if local_server:
     app.config['SQLALCHEMY_DATABASE_URI'] = params['local_uri']
@@ -121,14 +125,18 @@ def edit(sno):
     post = Posts.query.filter_by(sno=sno).first()
     return render_template('edit.html',post=post, params=params, sno=sno, box_title=box_title, subtitle=subtitle, slug=slug, content=content, img_file=img_file)
 
+
 @app.route('/edit/upload', methods=['GET', 'POST'])
+@login_required
 def upload():
     if request.method == 'POST':
         # Handle file upload here
         file = request.files['file']
-        # Save the file or do any processing
-        
-        return 'File uploaded successfully!'
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+        flash('File uploaded successfully!', 'success')
+        return redirect(url_for('upload'))
     else:
         return render_template('upload_form.html')
 
