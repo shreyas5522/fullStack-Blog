@@ -7,8 +7,8 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="site-heading">
-                    <h1>Clean Blog</h1>
-                    <span class="subheading">A Blog Theme by Start Bootstrap</span>
+                    <h1>Full Stack Blog</h1>
+                    <span class="subheading">A Full Stack Blog Developed in Flask</span>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <!-- Post preview-->
             <h2> <a href="/post/{{post.slug}}" class="postt-title">{{post.title}}</a></h2>
             <div class="post-preview">
-                <p >Subtitle: {{post.subtitle}}</p>
+                <p>Subtitle: {{post.subtitle}}</p>
                 <!-- Displaying Content -->
                 <p class="in-post-home">{{post.content[0:150]}}...</p>
 
@@ -41,8 +41,13 @@
 
             <!-- Divider-->
             <!-- Pager-->
-            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts
-                    →</a></div>
+            <div class="clearfix">
+                <div class="d-flex justify-content-between mb-4">
+                    <a class="btn btn-primary float-left" href="{{prev}}"> &larr;Previous</a>
+                    <a class="btn btn-primary float-right" href="{{next}}">Next &rarr;</a>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
