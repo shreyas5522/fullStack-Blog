@@ -1,22 +1,14 @@
-changePasswordForm.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const currentPassword = this.querySelector('#currentPassword').value;
-    const newPassword = this.querySelector('#newPassword').value;
-  
-    fetch('/dashboard/settings', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        'currentPassword': currentPassword,
-        'newPassword': newPassword
-      })
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
-    .catch((error) => {
-      console.error('Error:', error);
-    });
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight){
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
   });
-  
+}
