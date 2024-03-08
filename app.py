@@ -68,19 +68,35 @@ def dashboard():
                 # Invalid credentials, you might want to handle this case
                 flash('Invalid username or password.', 'error')
         return render_template('login.html', params=params)
-@app.route('/dashboard/settings', methods=['GET', 'POST'])
-@login_required 
-def settings():
-
-    if request.method == 'POST':
-        # Handle file upload here
-        file = request.files['file']
-        # Save the file or do any processing
-        
-        return 'File uploaded successfully!'
-    else:
-        return render_template('dashboard_settings.html')
     
+@app.route('/dashboard/settings', methods=['GET', 'POST'])
+@login_required
+def settings():
+    if request.method == 'GET':
+        return render_template('dashboard_settings.html')  # Render settings form with password masking
+
+    elif request.method == 'POST':
+        current_password = request.form['current_password']
+        new_password = request.form['new_password']
+        confirm_password = request.form['confirm_password']
+
+        if current_user.password != current_password:
+            flash('Incorrect current password', 'error')
+            return redirect(url_for('settings'))
+
+        if new_password != confirm_password:
+            flash('New passwords do not match', 'error')
+            return redirect(url_for('settings'))
+
+        # Update the user's password directly
+        current_user.password = new_password
+        db.session.commit()
+        flash('Password changed successfully!', 'success')
+        return redirect(url_for('dashboard'))
+
+    return 'Invalid request method', 405  # Handle invalid methods
+
+
 @app.route("/edit/<string:sno>", methods=['GET', 'POST'])
 @login_required  # Assuming you have a login_required decorator
 def edit(sno):
