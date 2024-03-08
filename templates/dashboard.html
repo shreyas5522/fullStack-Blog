@@ -7,13 +7,13 @@
 
         {% with messages = get_flashed_messages(with_categories=True) %}
         {% if messages %}
-        <ul class="flashes">
+        <div class="flashes">
             {% for category, message in messages %}
-            <li class="alert alert-{{ category }}">
+            <p class="alert alert-{{ category }}">
                 {{ message }}
-            </li>
+            </p>
             {% endfor %}
-        </ul>
+        </div>
         {% endif %}
         {% endwith %}
         <h3 style="font-size: 24px; margin-top: 0;">Hello, {{username}}</h3>
