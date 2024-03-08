@@ -75,18 +75,23 @@ def settings():
     if request.method == 'GET':
         return render_template('dashboard_settings.html')  # Render settings form with password masking
 
-    elif request.method == 'POST' and new_user:
+    elif request.method == 'POST':
   
         new_username = request.form.get('new_username')
 
         if new_username:
-            new_password = request.form['new_password']
-            new_password = request.form['new_password']            
+            new_user_password = request.form['new_user_password']
+            confirm_newuser_password = request.form['confirm_newuser_password'] 
+
+            if new_user_password != confirm_newuser_password:
+                flash('New passwords do not match', 'error')
+            return redirect(url_for('settings'))
+
         else:    
             current_password = request.form['current_password']
-            new_user_password = request.form['new_password']
-            confirm_newuser_password = request.form['confirm_password']
-        
+            new_password = request.form['new_password']
+            confirm_password = request.form['confirm_password']
+
             if current_user.password != current_password:
                 flash('Incorrect current password', 'error')
                 return redirect(url_for('settings'))
