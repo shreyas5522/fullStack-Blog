@@ -1,35 +1,37 @@
 {% extends "dashboard_layout.html" %}
 {% block body %}
-<link href=" {{ url_for('static', filename='css/settings.css')}}" rel="stylesheet"> 
+<link href=" {{ url_for('static', filename='css/settings.css')}}" rel="stylesheet">
 
-<h1 style="margin-top: 70px;">User Features</h1>
+<div class="container">
 
-<button class="accordion">Change Password</button>
-<div class="panel">
-  <form method="POST">
-    <label for="current_password">Current Password:</label>
-    <input type="password" name="current_password" required><br><br>
-    <label for="new_password">New Password:</label>
-    <input type="password" name="new_password" required><br><br>
-    <label for="confirm_password">Confirm Password:</label>
-    <input type="password" name="confirm_password" required><br><br>
-    <button type="submit">Change Password</button>
-  </form>
-  {% with messages = get_flashed_messages(with_categories=True) %}
+  <h1 style="margin-top: 70px;">User Features</h1>
+
+  <button class="accordion">Change Password</button>
+  <div class="panel importFormStyle">
+    <form method="POST" style="margin: 20px;">
+      <label for="current_password">Current Password:</label>
+      <input type="password" name="current_password" required><br><br>
+      <label for="new_password">New Password:</label>
+      <input type="password" name="new_password" required><br><br>
+      <label for="confirm_password">Confirm Password:</label>
+      <input type="password" name="confirm_password" required><br><br>
+      <button type="submit" class="btn btn-primary">Change Password</button>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=True) %}
     {% if messages %}
-      <ul class="flashes">
-        {% for category, message in messages %}
-          <li class="alert alert-{{ category }}">
-            {{ message }}
-          </li>
-        {% endfor %}
-      </ul>
+    <ul class="flashes">
+      {% for category, message in messages %}
+      <li class="alert alert-{{ category }}">
+        {{ message }}
+      </li>
+      {% endfor %}
+    </ul>
     {% endif %}
-  {% endwith %}
-</div>
+    {% endwith %}
+  </div>
 
-<button class="accordion">Add User</button>
-<div class="panel">
+  <button class="accordion">Add User</button>
+  <div class="panel importFormStyle">
     <form method="POST" action="{{ url_for('settings') }}">
       <label for="new_username">Username:</label>
       <input type="text" name="new_username" required><br><br>
@@ -37,9 +39,10 @@
       <input type="password" name="new_user_password" required><br><br>
       <label for="confirm_newuser_password">Confirm Password:</label>
       <input type="password" name="confirm_newuser_password" required><br><br>
-      <button type="submit">Add User</button>
+      <button type="submit" class="btn btn-primary">Add User</button>
     </form>
   </div>
+</div>
 
 
 <script src="{{ url_for('static', filename='js/settings.js')}}"></script>
