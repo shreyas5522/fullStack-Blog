@@ -85,8 +85,14 @@ def settings():
 
             if new_user_password != confirm_newuser_password:
                 flash('New passwords do not match', 'error')
-            return redirect(url_for('settings'))
+                return redirect(url_for('settings'))
+            new_user = User(username=new_username, password=confirm_newuser_password)
 
+            db.session.add(new_user)
+            db.session.commit()
+
+            flash('New User Added!', 'success')
+            return redirect(url_for('dashboard')) 
         else:    
             current_password = request.form['current_password']
             new_password = request.form['new_password']
