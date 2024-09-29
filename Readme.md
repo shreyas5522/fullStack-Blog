@@ -89,6 +89,11 @@ Key features include:
     );
     ```
 
+3. **Add User to access Database:**
+    ```sql
+    INSERT INTO user (username, password) VALUES ('shreyas', 'your_password_here');
+    ```
+
 ---
 
 ### Step 3: Install Python and Required Packages
