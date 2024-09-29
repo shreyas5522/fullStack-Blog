@@ -8,7 +8,6 @@
    - **Create and Manage Posts:** Users can write, edit, and delete blog posts with rich content, including titles, subtitles, and images.
    - **Responsive Design:** The application is designed to be responsive and user-friendly, ensuring a smooth experience across devices.
 
-   This project serves as a comprehensive solution for blogging and contact management, showcasing the power of Flask as a full-stack web framework.
    ---
    ### Step 1: Install MySQL Server
 
@@ -28,19 +27,19 @@
 
    3. **Access MySQL Command Line:**
       ```bash
-      mysql -u root -p
+      sudo mysql -u root -p
       ```
-      - Enter your MySQL root password when prompted.
+      - Directly hit Enter when MySQL Password promted.
 
    ### Step 2: Create the Database and Tables
 
-   1. **Create a Database:**
+   4. **Create a Database:**
       ```sql
-      CREATE DATABASE contacts_management;
-      USE contacts_management;
+      CREATE DATABASE database_blog;
+      USE database_blog;
       ```
 
-   2. **Create Tables:**
+   5. **Create Tables:**
       ```sql
       CREATE TABLE Contacts (
           sno INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -72,24 +71,28 @@
 
    ### Step 3: Install Python and Required Packages
 
-   1. **Download and Install Python:**
-      - Go to [Python Downloads](https://www.python.org/downloads/) and install the latest version.
-
-   2. **Install Required Python Packages:**
-      Open your terminal or command prompt and run:
+   6. **Download and Install Python:**
       ```bash
-      pip install Flask Flask-SQLAlchemy mysqlclient
+        sudo apt-get install python-is-python3
+        sudo apt-get install python3-pip
+        sudo apt-get install pkg-config libmysqlclient-dev
+        sudo apt-get install python3-mysqldb
+        sudo apt-get install python3-venv
       ```
+
+   1. **Install Required Python Packages:**
+      Open your terminal or command prompt and run:
+
 
    ### Step 4: Run the Flask Application
 
-   1. **Run the Application:**
+   8. **Run the Application:**
       In your terminal, navigate to the directory containing `app.py` and run:
       ```bash
       python app.py
       ```
 
-   2. **Access the System:**
+   9. **Access the System:**
       Open your web browser and go to:
       ```
       http://localhost:5000
