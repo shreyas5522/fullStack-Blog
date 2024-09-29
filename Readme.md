@@ -8,28 +8,45 @@
    - **Create and Manage Posts:** Users can write, edit, and delete blog posts with rich content, including titles, subtitles, and images.
    - **Responsive Design:** The application is designed to be responsive and user-friendly, ensuring a smooth experience across devices.
 
-   ---
-   ### Step 1: Install MySQL Server
+---
+### Step 1: Install MySQL Server
 
-   1. **Download and Install MySQL:**
-      - On Linux, use the terminal:
-        ```bash
-        sudo apt-get update
-        sudo apt-get install mysql-server
-        ```
-
-   2. **Start MySQL Server:**
-      - On Windows, you can start MySQL from the Services application.
-      - On macOS or Linux, use the terminal:
-        ```bash
-        sudo service mysql start
-        ```
-
-   3. **Access MySQL Command Line:**
+1. **Download and Install MySQL:**
+    - On Linux, use the terminal:
       ```bash
-      sudo mysql -u root -p
+      sudo apt-get update
+      sudo apt-get install mysql-server
       ```
-      - Directly hit Enter when MySQL Password promted.
+
+2. **Start MySQL Server:**
+    - On Windows, you can start MySQL from the Services application.
+    - On macOS or Linux, use the terminal:
+      ```bash
+      sudo service mysql start
+      ```
+
+3. **Access MySQL Command Line:**
+    ```bash
+    sudo mysql -u root -p
+    ```
+    - Directly hit Enter when MySQL Password is prompted.
+
+4. **Set the Root Password:**
+    Run the following commands to set the root password to `123412`:
+    ```sql
+    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123412';
+    ```
+
+5. **Flush Privileges:**
+    This command reloads the grant tables to ensure the changes take effect:
+    ```sql
+    FLUSH PRIVILEGES;
+    ```
+
+6. **Exit MySQL Command Line:**
+    ```sql
+    EXIT;
+    ```
 
    ### Step 2: Create the Database and Tables
 
@@ -82,7 +99,9 @@
 
    1. **Install Required Python Packages:**
       Open your terminal or command prompt and run:
-
+      ```bash
+        pip install Flask Flask-SQLAlchemy mysqlclient flask_login
+      ```
 
    ### Step 4: Run the Flask Application
 

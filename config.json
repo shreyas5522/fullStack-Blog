@@ -1,8 +1,8 @@
 {
     "params": {
         "local_server": "True",
-        "local_uri": "mysql://root:%rxUXm*4H3p~80z@localhost/database_blog",
-        "prod_uri": "mysql://root:%rxUXm*4H3p~80z@localhost/database_blog",
+        "local_uri": "mysql://root:123412@localhost/database_blog",
+        "prod_uri": "mysql://root:123412@localhost/database_blog",
         "no_of_posts": 3,
         "blog_name": "fullStack-Blog",
         "tag_line": "It should be the TagLine",
